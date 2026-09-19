@@ -3,219 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REASONTODATE.COM | Sovereign Operations</title>
+    <meta name="description" content="AI-powered dating platform using deep compatibility analysis and relationship coaching for lasting connections.">
+    <title>reasontodate.com | Compatibility questionnaire &amp; conversation starters</title>
     <style>
         :root {
-            --bg-dark: #050505;
-            --accent-glow: rgba(0, 255, 204, 0.15);
-            --glass-bg: rgba(20, 20, 20, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --text-primary: #f0f0f0;
-            --text-muted: #888;
+            --bg-dark: #0c0709;
+            --primary: #E91E63;
+            --secondary: #F06292;
+            --accent: #2196F3;
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f4efe5;
+            --text-muted: #a89a9f;
         }
+        * { box-sizing: border-box; }
         body {
             margin: 0;
             padding: 0;
+            min-height: 100vh;
             background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 80% 10%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 32rem),
+                               linear-gradient(160deg, color-mix(in srgb, var(--primary) 30%, var(--bg-dark)), var(--bg-dark) 55%, color-mix(in srgb, var(--secondary) 18%, var(--bg-dark)));
             color: var(--text-primary);
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            overflow: hidden;
-            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
         }
-        /* WebGL Container Layer */
-        #canvas-container {
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 0;
+        main {
+            width: min(760px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: clamp(48px, 10vw, 110px) 0 60px;
         }
-        /* Somatic UI Layer (Glassmorphism) */
-        .glass-panel {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 800px;
-            padding: 40px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
-            z-index: 10;
-            animation: emerge 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-        }
-        @keyframes emerge {
-            0% { opacity: 0; transform: translate(-50%, -45%) scale(0.95); filter: blur(10px); }
-            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
+        .eyebrow {
+            color: var(--accent);
+            font: 700 11px/1.4 ui-monospace, SFMono-Regular, monospace;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
         }
         h1 {
-            font-size: 3rem;
-            letter-spacing: -0.05em;
-            margin: 0 0 10px 0;
-            background: linear-gradient(180deg, #fff 0%, #aaa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: clamp(2.4rem, 6vw, 3.4rem);
+            letter-spacing: -0.02em;
+            margin: 16px 0 18px;
         }
-        .metrics {
-            display: flex;
-            gap: 20px;
-            margin-top: 30px;
+        p.lede {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 620px;
         }
-        .metric-card {
-            flex: 1;
-            padding: 20px;
-            background: rgba(0,0,0,0.4);
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.03);
-            transition: all 0.3s ease;
+        .panel {
+            margin-top: 40px;
+            padding: 28px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
         }
-        .metric-card:hover {
-            background: rgba(255,255,255,0.03);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px var(--accent-glow);
+        .panel h2 { margin-top: 0; font-size: 1.15rem; }
+        .panel p { color: var(--text-muted); line-height: 1.6; }
+        .cta {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 600;
         }
-        .metric-value { font-size: 2rem; font-weight: 600; color: #00ffcc; }
-        .metric-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 5px; }
-        
-        /* Micro-interactions */
-        .status-dot {
-            display: inline-block; width: 8px; height: 8px;
-            background: #00ffcc; border-radius: 50%;
-            margin-right: 10px;
-            box-shadow: 0 0 10px #00ffcc;
-            animation: pulse 2s infinite;
+        .cta:hover { background: var(--secondary); }
+        .caveat {
+            margin-top: 32px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--glass-border);
+            padding-top: 20px;
         }
-        @keyframes pulse {
-            0% { opacity: 0.5; box-shadow: 0 0 5px #00ffcc; }
-            50% { opacity: 1; box-shadow: 0 0 15px #00ffcc, 0 0 30px #00ffcc; }
-            100% { opacity: 0.5; box-shadow: 0 0 5px #00ffcc; }
+        footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
+        footer a { color: var(--accent); }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <!-- MASCOM_ANALYTICS_CORTEX -->
-    <script>
-        (function() {
-            try {
-                const payload = {
-                    node: "reasontodate.com",
-                    timestamp: new Date().toISOString(),
-                    vector: window.location.pathname,
-                    agent: navigator.userAgent
-                };
-                navigator.sendBeacon("http://127.0.0.1:8889/track", JSON.stringify(payload));
-            } catch(e) {}
-        })();
-    </script>
-    
 </head>
 <body>
-    <div id="canvas-container"></div>
-    
-    <div class="glass-panel">
-        <div style="display: flex; align-items: center; margin-bottom: 20px;">
-            <div class="status-dot"></div>
-            <span style="color: var(--text-muted); font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase;">SOVEREIGN NODE ACTIVE</span>
-        </div>
-        <h1>REASONTODATE.COM</h1>
-        <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; max-width: 600px;">
-            Premium, enigmatic, hyper-modern. Physical environment protocol: quantum_field.
+    <main>
+        <div class="eyebrow">reasontodate.com</div>
+        <h1>Deep compatibility, before the first message.</h1>
+        <p class="lede">
+            A 30-question compatibility questionnaire that turns two people's honest answers into a real,
+            deterministic compatibility score, the specific things you actually have in common, and one
+            AI-drafted opening line that references them &mdash; not a generic icebreaker.
         </p>
-        
-        <div class="metrics">
-            <div class="metric-card">
-                <div class="metric-value">99.9%</div>
-                <div class="metric-label">Neural Coherence</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">0ms</div>
-                <div class="metric-label">API Latency</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">LOCAL</div>
-                <div class="metric-label">Execution Vector</div>
-            </div>
+
+        <div class="panel">
+            <h2>Try it now</h2>
+            <p>
+                The live tool is at <a href="https://reasontodate.com/" class="cta">reasontodate.com &rarr;</a>
+            </p>
         </div>
-    </div>
 
-    <script>
-        // Evolved WebGL Matrix
-        const container = document.getElementById('canvas-container');
-        const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x050505, 0.002);
-        
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        container.appendChild(renderer.domElement);
-        
-        // Complex geometry generation instead of naked cubes
-        const geometry = new THREE.IcosahedronGeometry(10, 1);
-        const material = new THREE.MeshBasicMaterial({ 
-            color: 0x00ffcc, 
-            wireframe: true,
-            transparent: true,
-            opacity: 0.15
-        });
-        
-        const mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
-        
-        // Particles
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 2000;
-        const posArray = new Float32Array(particlesCount * 3);
-        for(let i=0; i<particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 100;
-        }
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.05,
-            color: 0x00ffcc,
-            transparent: true,
-            opacity: 0.5
-        });
-        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particlesMesh);
-        
-        camera.position.z = 25;
-        
-        // Interactive Mouse Tracking
-        let mouseX = 0;
-        let mouseY = 0;
-        document.addEventListener('mousemove', (event) => {
-            mouseX = event.clientX / window.innerWidth - 0.5;
-            mouseY = event.clientY / window.innerHeight - 0.5;
-        });
-        
-        function animate() {
-            requestAnimationFrame(animate);
-            mesh.rotation.x += 0.001;
-            mesh.rotation.y += 0.002;
-            
-            particlesMesh.rotation.y = -mouseX * 0.5;
-            particlesMesh.rotation.x = -mouseY * 0.5;
-            
-            renderer.render(scene, camera);
-        }
-        animate();
-        
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
+        <p class="caveat">
+            Honest scope: this is a self-assessment tool for two people who already have each other's answers
+            (for example, after a first date) &mdash; reasontodate.com does not yet have a live pool of other
+            users to match you against. No accounts, no messaging platform, no claims beyond what's actually
+            built.
+        </p>
 
-    <!-- MASCOM_INTERLINK -->
-    <div style="position: absolute; bottom: 20px; right: 40px; z-index: 100; font-family: monospace; font-size: 0.7rem; letter-spacing: 0.1em; display: flex; gap: 20px;">
-        <a href="blog.html" style="color: #00ffcc; text-decoration: none; text-shadow: 0 0 5px rgba(0,255,204,0.3); transition: color 0.2s;">INTELLIGENCE CORTEX</a>
-        
-        <a href="http://localhost:8888" style="color: #888; text-decoration: none; transition: color 0.2s;">SOVEREIGN GATEWAY</a>
-    </div>
-    
+        <footer>
+            <a href="blog.html">Notes</a>
+        </footer>
+    </main>
 </body>
 </html>
